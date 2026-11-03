@@ -1,0 +1,14 @@
+AlignConsecutiveMacros: true
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakAfterReturnType: AllDefinitions
+BreakStringLiterals: true
+ColumnLimit: 90
+IncludeBlocks: Merge
+IndentCaseLabels: false
+IndentWidth: 4
+PointerAlignment: Left
+UseTab: Never
+SortIncludes: Never
