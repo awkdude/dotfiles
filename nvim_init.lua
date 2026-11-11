@@ -1,3 +1,20 @@
+local uname = vim.uv.os_uname().sysname
+if uname == "Windows_NT" then
+    -- Sets terminal shell to powershell
+    local powershell_options = {
+      shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
+      shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+      shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+      shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+      shellquote = "",
+      shellxquote = "",
+    }
+
+    for option, value in pairs(powershell_options) do
+      vim.opt[option] = value
+    end
+end
+
 vim.loader.enable()
 function map(mode, shortcut, command)
   vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
@@ -254,8 +271,8 @@ require("lazy").setup({
         config = function()
             require'window-picker'.setup()
         end,
-    }
-    -- 'andweeb/presence.nvim'
+    },
+    -- 'andweeb/presence.nvim',
     -- }}}
 })
 
@@ -321,7 +338,7 @@ vim.keymap.set("n", "<leader>b", function()
   })
 end, {desc = "Telescope buffers"})
 
-vim.keymap.set("n", "<leader>C", function()
+vim.keymap.set("n", "<leader>c", function()
   require("telescope.builtin").colorscheme({
       enable_preview= true,
       ignore_builtins=true,
@@ -518,7 +535,6 @@ require("overseer").setup()
 --     line_number_text    = "Line %s out of %s",        -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
 -- })
 
---- vim.cmd("set shell=pwsh.exe")
 -- vim.keymap.set('n', '-', function()
 --     local reveal_file = vim.fn.expand('%:p')
 --     if (reveal_file == '') then
