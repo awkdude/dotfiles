@@ -157,6 +157,7 @@ require("lazy").setup({
         --     }
         -- },
         'morhetz/gruvbox',
+        'sainnhe/everforest',
         { 'ccxnu/rosebones', 
             name = 'rosebones',
             lazy = false,
@@ -339,11 +340,24 @@ vim.keymap.set("n", "<leader>b", function()
 end, {desc = "Telescope buffers"})
 
 vim.keymap.set("n", "<leader>c", function()
-  require("telescope.builtin").colorscheme({
-      enable_preview= true,
-      ignore_builtins=true,
-  })
-end, {desc = "Telescope colorschemes"})
+    require("telescope.builtin").colorscheme({
+        enable_preview= true,
+        ignore_builtins=true,
+    })
+    end, {desc = "Telescope colorschemes"}
+)
+
+vim.keymap.set("n", "<leader>q", "<ESC>:q<CR>", {desc = "Close current window"})
+vim.keymap.set("n", "<leader>t", 
+    function() 
+        if vim.o.background == 'dark' then
+            vim.opt.background='light'
+        elseif vim.o.background == 'light' then
+            vim.opt.background='dark'
+        end
+    end,
+    {desc="Toggle background"}
+)
 
 require('nvim-treesitter').install({'odin', 'rust', 'c3', 'toml'})
 require('nvim-treesitter').setup({
